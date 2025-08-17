@@ -1,4 +1,4 @@
-// --- src/app/components/Login.js ---
+// --- src/app/components/Login.js (v1.2 - LINT FIX) ---
 'use client';
 import React, { useState } from 'react';
 import { signInWithEmailAndPassword } from "firebase/auth";
@@ -13,8 +13,12 @@ const Login = () => {
     const handleLogin = async (e) => {
         e.preventDefault();
         setError(''); setLoading(true);
-        try { await signInWithEmailAndPassword(auth, email, password); } 
-        catch (err) { setError('Login failed. Please check your credentials.'); }
+        try { 
+            await signInWithEmailAndPassword(auth, email, password); 
+        } catch (err) { // We now use 'err'
+            console.error("Login Error:", err);
+            setError('Login failed. Please check your credentials.'); 
+        }
         setLoading(false);
     };
     return (

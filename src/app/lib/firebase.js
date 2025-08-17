@@ -1,11 +1,9 @@
-// --- src/lib/firebase.js (THE DEFINITIVE SECURE VERSION) ---
+// --- src/lib/firebase.js (v1.2 - DEFINITIVE BROWSER SAFE) ---
 import { initializeApp, getApps } from "firebase/app";
 import { getDatabase } from "firebase/database";
 import { getAuth } from "firebase/auth";
-import { getStorage } from "firebase/storage";
-import { getFunctions } from "firebase/functions";
 
-// This code now securely reads your keys from the .env.local file
+// This is the browser-safe way to access environment variables
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
   authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
@@ -17,14 +15,8 @@ const firebaseConfig = {
 };
 
 let app;
-if (!getApps().length) {
-    app = initializeApp(firebaseConfig);
-} else {
-    app = getApps()[0];
-}
+if (!getApps().length) { app = initializeApp(firebaseConfig); } 
+else { app = getApps()[0]; }
 
-// These export lines are the most important part
 export const database = getDatabase(app);
 export const auth = getAuth(app);
-export const storage = getStorage(app);
-export const functions = getFunctions(app);
