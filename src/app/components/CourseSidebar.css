@@ -1,0 +1,17 @@
+/* --- src/app/components/CourseSidebar.css --- */
+.course-sidebar { width: 320px; background-color: var(--surface-color); border-right: 1px solid var(--border-color); display: flex; flex-direction: column; flex-shrink: 0; }
+.sidebar-header { padding: 1.5rem; border-bottom: 1px solid var(--border-color); }
+.sidebar-header h3 { margin: 0; }
+.sidebar-modules { overflow-y: auto; flex-grow: 1; padding: 1.5rem; }
+.module-group { margin-bottom: 2rem; }
+.module-group h4 { margin: 0 0 1rem 0; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-secondary); }
+.module-group ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.5rem; }
+.sidebar-lesson-link { display: flex; align-items: center; padding: 0.75rem 1rem; border-radius: 6px; text-decoration: none; font-weight: 500; transition: background-color 0.2s, color 0.2s; }
+.sidebar-lesson-link.unlocked { color: var(--text-primary); }
+.sidebar-lesson-link.unlocked:hover { background-color: var(--background-color); }
+.sidebar-lesson-link.locked { color: var(--text-secondary); opacity: 0.6; cursor: not-allowed; }
+.sidebar-lesson-link.active { background-color: var(--primary-red); color: white; }
+.lesson-link-icon { margin-right: 1rem; display: flex; align-items: center; font-size: 1rem; }
+.completed-icon { color: #28a745; }
+.unlock-ring { width: 12px; height: 12px; border-radius: 50%; border: 2px solid var(--text-secondary); }
+.sidebar-lesson-link.active .unlock-ring { border-color: white; }
