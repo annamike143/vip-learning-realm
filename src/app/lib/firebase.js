@@ -1,9 +1,10 @@
-// --- src/lib/firebase.js (v1.2 - DEFINITIVE BROWSER SAFE) ---
-import { initializeApp, getApps } from "firebase/app";
+// --- src/app/lib/firebase.js (THE DEFINITIVE SINGLETON PATTERN) ---
+import { initializeApp, getApps, getApp } from "firebase/app";
 import { getDatabase } from "firebase/database";
 import { getAuth } from "firebase/auth";
 
-// This is the browser-safe way to access environment variables
+// Your web app's Firebase configuration
+// This is the browser-safe way to access these variables
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
   authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
@@ -14,9 +15,9 @@ const firebaseConfig = {
   appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID
 };
 
-let app;
-if (!getApps().length) { app = initializeApp(firebaseConfig); } 
-else { app = getApps()[0]; }
+// Initialize Firebase for SSR and SSG, and prevent re-initialization on the client
+const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
+const database = getDatabase(app);
+const auth = getAuth(app);
 
-export const database = getDatabase(app);
-export const auth = getAuth(app);
+export { app, database, auth };
