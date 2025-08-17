@@ -1,0 +1,39 @@
+/* --- src/app/components/ResourcesTab.css --- */
+.resources-container {
+    padding: 1rem;
+}
+.resources-container h3 {
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+}
+.resources-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+.resource-link {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    background-color: var(--background-color);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    text-decoration: none;
+    color: var(--text-primary);
+    transition: background-color 0.2s, border-color 0.2s;
+}
+.resource-link:hover {
+    background-color: var(--surface-color);
+    border-color: var(--primary-red);
+}
+.resource-icon {
+    font-size: 1.5rem;
+    margin-right: 1rem;
+    color: var(--primary-red);
+}
+.resource-title {
+    font-weight: 500;
+}

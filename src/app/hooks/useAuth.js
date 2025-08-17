@@ -1,13 +1,11 @@
-// --- src/hooks/useAuth.js ---
+// src/app/hooks/useAuth.js (DEFINITIVE)
 'use client';
 import { useState, useEffect } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
-import { auth } from '../lib/firebase';
-
+import { auth } from '../lib/firebase'; // Correct path: src/app/hooks -> src/app/lib
 export function useAuth() {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
-
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
             setUser(user);
@@ -15,6 +13,5 @@ export function useAuth() {
         });
         return () => unsubscribe();
     }, []);
-
     return { user, loading };
 }

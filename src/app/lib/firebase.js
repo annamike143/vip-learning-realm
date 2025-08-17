@@ -1,10 +1,9 @@
-// --- src/app/lib/firebase.js (THE DEFINITIVE SINGLETON PATTERN) ---
+// --- src/lib/firebase.js (DEFINITIVE FINAL VERSION) ---
 import { initializeApp, getApps, getApp } from "firebase/app";
 import { getDatabase } from "firebase/database";
 import { getAuth } from "firebase/auth";
+import { getFunctions } from "firebase/functions"; // <-- THE CRITICAL PIECE
 
-// Your web app's Firebase configuration
-// This is the browser-safe way to access these variables
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
   authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
@@ -15,9 +14,9 @@ const firebaseConfig = {
   appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID
 };
 
-// Initialize Firebase for SSR and SSG, and prevent re-initialization on the client
 const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
-const database = getDatabase(app);
-const auth = getAuth(app);
 
-export { app, database, auth };
+// These export lines are the most important part
+export const database = getDatabase(app);
+export const auth = getAuth(app);
+export const functions = getFunctions(app); // <-- THE CRITICAL PIECE
