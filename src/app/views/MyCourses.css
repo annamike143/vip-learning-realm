@@ -1,0 +1,67 @@
+/* --- src/app/views/MyCourses.css --- */
+.my-courses-container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+.my-courses-container > h2 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+}
+.my-courses-container > p {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    margin-bottom: 3rem;
+}
+.courses-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+}
+.course-card {
+    background-color: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    overflow: hidden;
+    text-decoration: none;
+    color: var(--text-primary);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+.course-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+}
+.course-card-content {
+    padding: 1.5rem;
+}
+.course-card h3 {
+    margin: 0 0 0.5rem 0;
+}
+.course-card p {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    min-height: 60px; /* Ensures cards have a similar height */
+}
+.progress-bar-container {
+    height: 8px;
+    width: 100%;
+    background-color: var(--background-color);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-top: 1rem;
+}
+.progress-bar-fill {
+    height: 100%;
+    background-color: var(--primary-red);
+    border-radius: 4px;
+    transition: width 0.5s ease-in-out;
+}
+.progress-text {
+    display: block;
+    margin-top: 0.5rem;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    text-align: right;
+}
