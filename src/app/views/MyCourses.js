@@ -33,34 +33,33 @@ const MyCourses = ({ user }) => {
         ]).then(([allCoursesData, userEnrollments]) => {
             setAllCourses(allCoursesData); // ✅ Store all courses
 
-            const myCourses = Object.keys(userEnrollments).map(courseId => {
-                const courseDetails = allCoursesData[courseId]?.details;
-                const courseModules = allCoursesData[courseId]?.modules;
-                const enrollmentProgress = userEnrollments[courseId]?.progress;
+            // --- THE NEW, INTELLIGENT MAPPING LOGIC ---
+            const myCourses = Object.keys(userEnrollments)
+                // --- THE NEW, INTELLIGENT FILTER LOGIC ---
+                .filter(courseId => {
+                    const status = allCoursesData[courseId]?.details?.status;
+                    // Show the course if the user is enrolled AND it's either Published or Archived
+                    return status === 'Published' || status === 'Archived';
+                })
+                .map(courseId => {
+                    const courseDetails = allCoursesData[courseId]?.details;
+                    const courseModules = allCoursesData[courseId]?.modules;
+                    const enrollmentProgress = userEnrollments[courseId]?.progress;
 
-                if (!courseDetails || !courseModules) return null;
+                    if (!courseDetails || !courseModules) return null;
 
-                const totalLessons = Object.values(courseModules).reduce((acc, module) => {
-                    return acc + (module.lessons ? Object.keys(module.lessons).length : 0);
-                }, 0);
+                    const totalLessons = Object.values(courseModules).reduce((acc, module) => acc + (module.lessons ? Object.keys(module.lessons).length : 0), 0);
+                    const completedLessons = enrollmentProgress?.completedLessons ? Object.keys(enrollmentProgress.completedLessons).length : 0;
+                    const progressPercentage = totalLessons > 0 ? (completedLessons / totalLessons) * 100 : 0;
+                    const currentLessonId = enrollmentProgress?.currentLessonId || 'lesson_01';
 
-                const completedLessons = enrollmentProgress?.completedLessons
-                    ? Object.keys(enrollmentProgress.completedLessons).length
-                    : 0;
-
-                const progressPercentage = totalLessons > 0
-                    ? (completedLessons / totalLessons) * 100
-                    : 0;
-
-                const currentLessonId = enrollmentProgress?.currentLessonId || 'lesson_01';
-
-                return {
-                    id: courseId,
-                    ...courseDetails,
-                    progress: progressPercentage,
-                    currentLessonId: currentLessonId,
-                };
-            }).filter(Boolean);
+                    return {
+                        id: courseId,
+                        ...courseDetails,
+                        progress: progressPercentage,
+                        currentLessonId: currentLessonId,
+                    };
+                }).filter(Boolean);
 
             setEnrolledCourses(myCourses);
             setLoading(false);

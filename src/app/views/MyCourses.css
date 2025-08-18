@@ -127,3 +127,17 @@
     border-radius: 12px;
     color: var(--text-primary);
 }
+/* --- New Coming Soon Styles --- */
+.coming-soon-section {
+    margin-top: 5rem;
+}
+.course-card.coming-soon {
+    cursor: default;
+}
+.course-card.coming-soon .view-course-button {
+    background-color: var(--text-secondary);
+    cursor: default;
+}
+.course-card.coming-soon:hover {
+    transform: none;
+}
