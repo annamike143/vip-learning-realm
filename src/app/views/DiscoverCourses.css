@@ -1,3 +1,219 @@
+/* Section grouping and centering */
+.section-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 2.5rem;
+}
+
+.section-title, .section-group h2 {
+    margin-bottom: 0.5rem;
+    text-align: center;
+}
+
+.subtitle {
+    margin-bottom: 1.5rem;
+    text-align: center;
+    color: #555;
+}
+
+.courses-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+}
+
+.course-card {
+    background: #fff;
+    border-radius: 1rem;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+    overflow: hidden;
+    position: relative;
+    width: 340px;
+    min-height: 220px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    margin-bottom: 1rem;
+}
+
+.course-card-content {
+    position: relative;
+    z-index: 2;
+    padding: 1.2rem;
+    text-align: left;
+}
+
+.course-title {
+    color: #fff;
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.45);
+}
+
+.view-course-button {
+    display: inline-block;
+    background: #e00;
+    color: #fff;
+    padding: 0.4rem 1.2rem;
+    border-radius: 2rem;
+    font-size: 1rem;
+    font-weight: 600;
+    margin-top: 0.5rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+}
+
+.card-background-image {
+    border-radius: 1rem;
+}
+
+.card-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(180deg,rgba(0,0,0,0.32) 0%,rgba(0,0,0,0.56) 100%);
+    z-index: 1;
+}
+
+@media (max-width: 900px) {
+    .courses-grid {
+        gap: 1rem;
+    }
+    .course-card {
+        width: 90vw;
+        min-width: 220px;
+        max-width: 340px;
+    }
+}
+
+@media (max-width: 600px) {
+    .section-title, .section-group h2 {
+        font-size: 1.3rem;
+    }
+    .subtitle {
+        font-size: 1rem;
+    }
+    .course-title {
+        font-size: 1.1rem;
+    }
+    .course-card {
+        width: 100vw;
+        min-width: 180px;
+        max-width: 98vw;
+    }
+}
+/* Center sections and subtitles */
+.section-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 2.5rem;
+}
+
+.section-group h2 {
+    margin-bottom: 0.5rem;
+    text-align: center;
+}
+
+.subtitle {
+    margin-bottom: 1.5rem;
+    text-align: center;
+    color: #555;
+}
+
+.courses-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+}
+
+.course-card {
+    background: #fff;
+    border-radius: 1rem;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+    overflow: hidden;
+    position: relative;
+    width: 340px;
+    min-height: 220px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    margin-bottom: 1rem;
+}
+
+.course-card-content {
+    position: relative;
+    z-index: 2;
+    padding: 1.2rem;
+    text-align: left;
+}
+
+.course-title {
+    color: #fff;
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.45);
+}
+
+.view-course-button {
+    display: inline-block;
+    background: #e00;
+    color: #fff;
+    padding: 0.4rem 1.2rem;
+    border-radius: 2rem;
+    font-size: 1rem;
+    font-weight: 600;
+    margin-top: 0.5rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+}
+
+.card-background-image {
+    border-radius: 1rem;
+}
+
+.card-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(180deg,rgba(0,0,0,0.32) 0%,rgba(0,0,0,0.56) 100%);
+    z-index: 1;
+}
+
+@media (max-width: 900px) {
+    .courses-grid {
+        gap: 1rem;
+    }
+    .course-card {
+        width: 90vw;
+        min-width: 220px;
+        max-width: 340px;
+    }
+}
+
+@media (max-width: 600px) {
+    .section-group h2 {
+        font-size: 1.3rem;
+    }
+    .subtitle {
+        font-size: 1rem;
+    }
+    .course-title {
+        font-size: 1.1rem;
+    }
+    .course-card {
+        width: 100vw;
+        min-width: 180px;
+        max-width: 98vw;
+    }
+}
 /* --- src/app/views/DiscoverCourses.css --- */
 .discover-section {
     width: 100%;

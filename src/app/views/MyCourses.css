@@ -1,58 +1,45 @@
-/* --- src/app/views/MyCourses.css (v2.0 - The "Success Hub") --- */
-.my-courses-shell {
-    position: relative;
-    min-height: calc(100vh - 73px); /* Full height minus header */
-    padding: 3rem 1rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
+/* --- src/app/views/MyCourses.css (v2.2 - DEFINITIVE UNCOLLAPSED) --- */
 
-.breathing-background {
-    position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background: linear-gradient(270deg, var(--dark-navy), #4A5568, var(--dark-navy));
-    background-size: 200% 200%;
-    animation: breath 15s ease infinite;
-    z-index: 0;
-}
-
-@keyframes breath {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-}
-
+/* --- Main Container & Typography --- */
 .my-courses-container {
     max-width: 1200px;
-    width: 100%;
-    margin: auto;
-    position: relative;
-    z-index: 2;
-    color: white; /* Text is now white to contrast with background */
+    margin: 2rem auto;
+    padding: 0 1.5rem;
 }
 
 .my-courses-container > h2 {
     font-size: 2.8rem;
     margin-bottom: 0.5rem;
     text-align: center;
+    color: var(--text-primary); /* Corrected for light background */
 }
 
 .my-courses-container > p {
     font-size: 1.2rem;
     text-align: center;
     margin-bottom: 4rem;
-    opacity: 0.8;
+    color: var(--text-secondary); /* Corrected for light background */
 }
 
+.no-courses-message {
+    text-align: center;
+    padding: 4rem;
+    background: var(--surface-color);
+    border-radius: 12px;
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+}
+
+/* --- Course Card Grid --- */
 .courses-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
     gap: 2rem;
 }
 
+/* --- Individual Course Card --- */
 .course-card {
-    aspect-ratio: 16 / 9; /* Enforce a cinematic ratio */
+    aspect-ratio: 16 / 9;
     border-radius: 12px;
     overflow: hidden;
     text-decoration: none;
@@ -60,18 +47,20 @@
     position: relative;
     display: flex;
     flex-direction: column;
-    justify-content: flex-end; /* Aligns content to the bottom */
-    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-    transition: transform 0.3s ease;
+    justify-content: flex-end;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .course-card:hover {
-    transform: scale(1.03);
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.15);
 }
 
 .card-background-image {
     transition: transform 0.5s ease;
 }
+
 .course-card:hover .card-background-image {
     transform: scale(1.1);
 }
@@ -79,7 +68,7 @@
 .card-overlay {
     position: absolute;
     top: 0; left: 0; right: 0; bottom: 0;
-    background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.1) 100%);
+    background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.1) 70%);
     z-index: 2;
 }
 
@@ -92,8 +81,10 @@
 .course-card h3 {
     margin: 0 0 1rem 0;
     font-size: 1.5rem;
+    color: var(--white); /* Ensure title is always white */
 }
 
+/* --- Progress Bar --- */
 .progress-container {
     width: 100%;
 }
@@ -101,7 +92,7 @@
 .progress-bar-container {
     height: 8px;
     width: 100%;
-    background-color: rgba(255,255,255,0.2);
+    background-color: rgba(255,255,255,0.3);
     border-radius: 4px;
     overflow: hidden;
 }
@@ -110,34 +101,15 @@
     height: 100%;
     background-color: var(--primary-red);
     border-radius: 4px;
+    transition: width 0.5s ease-in-out;
 }
+
 .progress-text {
     display: block;
     margin-top: 0.5rem;
     font-size: 0.8rem;
     font-weight: 500;
     text-align: right;
-    opacity: 0.8;
-}
-
-.no-courses-message {
-    text-align: center;
-    padding: 4rem;
-    background: var(--surface-color);
-    border-radius: 12px;
-    color: var(--text-primary);
-}
-/* --- New Coming Soon Styles --- */
-.coming-soon-section {
-    margin-top: 5rem;
-}
-.course-card.coming-soon {
-    cursor: default;
-}
-.course-card.coming-soon .view-course-button {
-    background-color: var(--text-secondary);
-    cursor: default;
-}
-.course-card.coming-soon:hover {
-    transform: none;
+    color: var(--white);
+    opacity: 0.9;
 }
