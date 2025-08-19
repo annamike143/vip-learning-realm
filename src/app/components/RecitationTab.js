@@ -2,28 +2,30 @@
 'use client';
 
 import React from 'react';
+import ChatInterface from './ChatInterface';
 
-// A placeholder ChatInterface for now
-const ChatInterface = ({ title }) => (
-    <div className="chat-portal">
-        <h3>{title}</h3>
-        <div className="messages-display">
-            <div className="message assistant">
-                <span>{title === 'Lesson Recitation' ? 'AI Coach' : 'AI Concierge'}</span>
-                <p>The AI chat interface will be activated here.</p>
-            </div>
-        </div>
-        <form className="message-form">
-            <input type="text" placeholder="Your conversation begins here..." disabled />
-            <button type="submit" disabled>Send</button>
-        </form>
-    </div>
-);
-
-const RecitationTab = ({ lessonData, unlockCode, setUnlockCode, handleUnlock, unlockStatus }) => {
+const RecitationTab = ({ lessonData, unlockCode, setUnlockCode, handleUnlock, unlockStatus, user, courseId, lessonId }) => {
     return (
         <div>
-            <ChatInterface title="Lesson Recitation" assistantId={lessonData.recitationAssistantId} />
+            {lessonData?.recitationAssistantId ? (
+                <ChatInterface 
+                    title="Lesson Recitation" 
+                    assistantId={lessonData.recitationAssistantId} 
+                    user={user}
+                    courseId={courseId}
+                    lessonId={lessonId}
+                />
+            ) : (
+                <div className="chat-portal">
+                    <h3>Lesson Recitation</h3>
+                    <div className="messages-display">
+                        <div className="message assistant">
+                            <span>AI Coach</span>
+                            <p>Loading AI assistant... (Recitation Assistant ID required)</p>
+                        </div>
+                    </div>
+                </div>
+            )}
             <div className="unlock-gate">
                 <h3>Ready to Proceed?</h3>
                 <p>After completing the AI recitation, enter the code you received to unlock the next lesson.</p>

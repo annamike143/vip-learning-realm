@@ -1,4 +1,4 @@
-// --- src/app/course/[courseId]/[lessonId]/page.js (v4.0 - THE FINAL ASSEMBLY) ---
+// --- src/app/course/[courseId]/[lessonId]/page.js (THE DEFINITIVE FINAL REFACTOR) ---
 'use client';
 
 import React, { useState, useEffect } from 'react';
@@ -6,32 +6,28 @@ import { ref, onValue } from 'firebase/database';
 import { getFunctions, httpsCallable } from 'firebase/functions';
 import { useAuth } from '../../../hooks/useAuth';
 import { database, functions } from '../../../lib/firebase';
+import Image from 'next/image';
 
-// Import our master components
-import InteractiveTabs from '../../../components/InteractiveTabs';
-import RecitationTab from '../../../components/RecitationTab';
-import QnaTab from '../../../components/QnaTab';
-import ResourcesTab from '../../../components/ResourcesTab';
+// --- WE NOW IMPORT OUR SINGLE, MASTER COMPONENT ---
+import ChatInterface from '../../../components/ChatInterface';
 
-// Import the necessary stylesheets
 import './lesson-page.css';
-import '../../../components/InteractiveTabs.css';
-import '../../../components/ResourcesTab.css'; // We need this now
+import '../../../components/ChatInterface.css'; // Import the new stylesheet
 
 export default function CourseLessonPage({ params }) {
     const { courseId, lessonId } = params;
     const { user, loading: authLoading } = useAuth();
     const [lessonData, setLessonData] = useState(null);
-    const [courseData, setCourseData] = useState(null); // We need course data for the Q&A AI ID
+    const [courseData, setCourseData] = useState(null);
     const [loading, setLoading] = useState(true);
     const [unlockCode, setUnlockCode] = useState('');
     const [unlockStatus, setUnlockStatus] = useState({ message: '', error: false });
     const [error, setError] = useState(null);
+    const [activeTab, setActiveTab] = useState('recitation'); // Default to recitation for learning flow
 
     useEffect(() => {
         if (!lessonId || !courseId) return;
         const courseRef = ref(database, `courses/${courseId}`);
-        
         const unsubscribe = onValue(courseRef, (snapshot) => {
             const courseSnapshot = snapshot.val();
             setCourseData(courseSnapshot);
@@ -69,31 +65,6 @@ export default function CourseLessonPage({ params }) {
     if (authLoading || loading) return <div className="loading-state">Loading Your Lesson...</div>;
     if (error || !lessonData || !courseData) return <div className="loading-state">{error || 'An error occurred.'}</div>;
 
-    // --- HERE IS THE MASTER ASSEMBLY ---
-    const tabs = [
-        {
-            label: 'Lesson Recitation & Unlock',
-            shouldRender: true,
-            content: <RecitationTab 
-                        lessonData={lessonData} 
-                        unlockCode={unlockCode}
-                        setUnlockCode={setUnlockCode}
-                        handleUnlock={handleUnlock}
-                        unlockStatus={unlockStatus}
-                     />
-        },
-        {
-            label: 'Course Q&A / Mentorship',
-            shouldRender: true,
-            content: <QnaTab courseData={courseData} user={user} />
-        },
-        {
-            label: 'Downloads & Resources',
-            shouldRender: lessonData.resources && Object.keys(lessonData.resources).length > 0,
-            content: <ResourcesTab lessonData={lessonData} />
-        }
-    ];
-
     return (
         <div className="lesson-content-wrapper">
             <h2>{lessonData.title}</h2>
@@ -101,7 +72,81 @@ export default function CourseLessonPage({ params }) {
             <div className="video-container" dangerouslySetInnerHTML={{ __html: lessonData.videoEmbedCode || '' }} />
 
             <div className="interactive-zone">
-                <InteractiveTabs tabs={tabs} />
+                <div className="chat-tabs-container">
+                    <div className="chat-tabs-header">
+                        <button 
+                            className={`chat-tab ${activeTab === 'recitation' ? 'active' : ''}`}
+                            onClick={() => setActiveTab('recitation')}
+                            role="tab"
+                            aria-selected={activeTab === 'recitation'}
+                            aria-controls="recitation-panel"
+                            onKeyDown={(e) => {
+                                if (e.key === 'ArrowRight') setActiveTab('qna');
+                                if (e.key === 'ArrowLeft') setActiveTab('qna');
+                            }}
+                        >
+                            <span className="tab-icon">🎓</span>
+                            <span className="tab-title">Lesson Recitation</span>
+                            <span className="tab-subtitle">Practice & Review</span>
+                        </button>
+                        <button 
+                            className={`chat-tab ${activeTab === 'qna' ? 'active' : ''}`}
+                            onClick={() => setActiveTab('qna')}
+                            role="tab"
+                            aria-selected={activeTab === 'qna'}
+                            aria-controls="qna-panel"
+                            onKeyDown={(e) => {
+                                if (e.key === 'ArrowRight') setActiveTab('recitation');
+                                if (e.key === 'ArrowLeft') setActiveTab('recitation');
+                            }}
+                        >
+                            <span className="tab-icon">💬</span>
+                            <span className="tab-title">Course Q&A</span>
+                            <span className="tab-subtitle">Get Help & Support</span>
+                        </button>
+                    </div>
+                    <div className="chat-content-area">
+                        {activeTab === 'recitation' && (
+                            <div className="chat-panel active" role="tabpanel" id="recitation-panel" aria-labelledby="recitation-tab">
+                                <div className="chat-panel-header">
+                                    <h3>🎓 Lesson Recitation</h3>
+                                    <p>Practice what you've learned and receive personalized feedback</p>
+                                </div>
+                                <ChatInterface 
+                                    title="" 
+                                    assistantId={lessonData.recitationAssistantId} 
+                                    courseId={courseId} 
+                                    lessonId={lessonId}
+                                    chatType="recitation"
+                                />
+                            </div>
+                        )}
+                        {activeTab === 'qna' && (
+                            <div className="chat-panel active" role="tabpanel" id="qna-panel" aria-labelledby="qna-tab">
+                                <div className="chat-panel-header">
+                                    <h3>💬 Course Q&A & Support</h3>
+                                    <p>Ask questions about the course content or get technical support</p>
+                                </div>
+                                <ChatInterface 
+                                    title="" 
+                                    assistantId={courseData.courseConciergeAssistantId} 
+                                    courseId={courseId}
+                                    lessonId={lessonId}
+                                    chatType="qna"
+                                />
+                            </div>
+                        )}
+                    </div>
+                </div>
+                <div className="unlock-gate">
+                    <h3>Ready to Proceed?</h3>
+                    <p>After completing the AI recitation, enter the code you received to unlock the next lesson.</p>
+                    <div className="unlock-form">
+                        <input type="text" value={unlockCode} onChange={e => setUnlockCode(e.target.value)} placeholder="Enter Unlock Code" />
+                        <button onClick={handleUnlock}>Unlock</button>
+                    </div>
+                    {unlockStatus.message && <p className={`status-message ${unlockStatus.error ? 'error' : 'success'}`}>{unlockStatus.message}</p>}
+                </div>
             </div>
         </div>
     );
