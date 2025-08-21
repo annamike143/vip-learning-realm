@@ -161,28 +161,12 @@ const nextConfig = {
         scrollRestoration: true,
         optimizeCss: true,
         optimizePackageImports: ['react-icons', 'framer-motion'],
-        turbo: {
-            rules: {
-                '*.svg': {
-                    loaders: ['@svgr/webpack'],
-                    as: '*.js',
-                },
-            },
-        },
     },
 
     // Compiler optimizations
     compiler: {
         removeConsole: process.env.NODE_ENV === 'production',
         reactRemoveProperties: process.env.NODE_ENV === 'production',
-    },
-    
-    // Output configuration for different deployment targets
-    output: 'standalone',
-    
-    // Environment variables validation
-    env: {
-        CUSTOM_KEY: process.env.CUSTOM_KEY,
     }
 };
 

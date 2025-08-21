@@ -13,16 +13,18 @@
     "performance:audit": "lighthouse http://localhost:3000 --output=json --output-path=./performance/audit.json --chrome-flags=\"--headless\"",
     "performance:test": "npm run build && npm run start & npm run performance:audit",
     "bundle:analyze": "npm run build && npx @next/bundle-analyzer",
-    "cache:clear": "if exist .next\\cache rmdir /s /q .next\\cache"
+    "cache:clear": "rimraf .next"
   },
   "dependencies": {
+    "critters": "^0.0.23",
     "firebase": "^12.1.0",
     "framer-motion": "^12.23.12",
     "next": "^14.2.15",
     "openai": "^5.12.2",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "react-icons": "^5.5.0"
+    "react-icons": "^5.5.0",
+    "rimraf": "^6.0.1"
   },
   "devDependencies": {
     "@next/bundle-analyzer": "^14.2.32",
