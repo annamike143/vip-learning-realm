@@ -2,12 +2,13 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import { ref, onValue } from 'firebase/database';
-import { database, auth } from '../../lib/firebase';
+import { database } from '../../lib/firebase';
 import { useAuth } from '../../hooks/useAuth';
-import { signOut } from "firebase/auth";
-import Link from 'next/link';
 import CourseSidebar from '../../components/CourseSidebar';
+import KajabiHeader from '../../components/KajabiHeader';
+import ThemeProvider from '../../components/ThemeProvider';
 import '../../components/CourseSidebar.css';
+import '../../components/KajabiHeader.css';
 import './lesson-page.css';
 
 export default function CourseLayout({ children, params }) {
@@ -34,36 +35,33 @@ export default function CourseLayout({ children, params }) {
         return () => { unsubCourse(); unsubProgress(); };
     }, [courseId, user, authLoading]);
 
-    const handleSignOut = () => { signOut(auth); };
-
     if (authLoading || loading || !courseData) {
         return <div className="loading-state">Loading Course Environment...</div>;
     }
 
     return (
-        <div className="course-page-wrapper">
-            {/* --- The New "Context Realm" Header --- */}
-            <header className="main-app-header">
-                {/* Your new logo will go here later */}
-                <Link href="/" className="header-course-title">{courseData.details.title}</Link>
-                <div className="header-user-menu">
-                    {/* The progress bar will be added here later */}
-                    <span>Welcome, {user.displayName || 'VIP Member'}</span>
-                    <button onClick={handleSignOut} className="signout-button">Sign Out</button>
-                </div>
-            </header>
-
-            <div className="course-layout">
-                <CourseSidebar 
-                    course={courseData} 
-                    userProgress={userProgress} 
-                    courseId={courseId}
-                    activeLessonId={lessonId}
+        <ThemeProvider courseId={courseId}>
+            <div className="course-page-wrapper">
+                {/* Kajabi-Style Header */}
+                <KajabiHeader 
+                    user={user}
+                    courseData={courseData}
+                    userProgress={userProgress}
+                    currentPath={`/course/${courseId}`}
                 />
-                <main className="main-content-area">
-                    {children}
-                </main>
+
+                <div className="course-layout">
+                    <CourseSidebar 
+                        course={courseData} 
+                        userProgress={userProgress} 
+                        courseId={courseId}
+                        activeLessonId={lessonId}
+                    />
+                    <main className="main-content-area">
+                        {children}
+                    </main>
+                </div>
             </div>
-        </div>
+        </ThemeProvider>
     );
 }

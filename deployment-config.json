@@ -1,0 +1,90 @@
+{
+  "deployment": {
+    "name": "VIP Learning Realm",
+    "version": "1.0.0",
+    "environment": "production",
+    "domains": {
+      "primary": "learning.mikesalazaracademy.com",
+      "fallback": "vip-learning.vercel.app"
+    },
+    "ssl": {
+      "enabled": true,
+      "forceHttps": true,
+      "certificate": "auto"
+    }
+  },
+  "firebase": {
+    "projectId": "vip-academy-production",
+    "region": "us-central1",
+    "services": {
+      "authentication": true,
+      "database": true,
+      "storage": true,
+      "functions": true,
+      "analytics": true
+    }
+  },
+  "environment_variables": {
+    "required": [
+      "NEXT_PUBLIC_FIREBASE_API_KEY",
+      "NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN",
+      "NEXT_PUBLIC_FIREBASE_PROJECT_ID",
+      "NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET",
+      "NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID",
+      "NEXT_PUBLIC_FIREBASE_APP_ID",
+      "NEXT_PUBLIC_FIREBASE_DATABASE_URL",
+      "OPENAI_API_KEY",
+      "NEXT_PUBLIC_OPENAI_ASSISTANT_ID"
+    ],
+    "optional": [
+      "NEXT_PUBLIC_GA_ID",
+      "NEXT_PUBLIC_ANALYTICS_ENABLED",
+      "NEXT_PUBLIC_BASE_URL",
+      "NEXT_PUBLIC_GOOGLE_VERIFICATION",
+      "NEXT_PUBLIC_BING_VERIFICATION"
+    ]
+  },
+  "performance": {
+    "caching": {
+      "static_assets": "365d",
+      "api_responses": "1h",
+      "images": "30d"
+    },
+    "compression": {
+      "enabled": true,
+      "level": 9
+    },
+    "bundling": {
+      "code_splitting": true,
+      "tree_shaking": true,
+      "minification": true
+    }
+  },
+  "security": {
+    "headers": {
+      "hsts": true,
+      "csp": true,
+      "frame_options": "DENY"
+    },
+    "rate_limiting": {
+      "api": "100/hour",
+      "auth": "10/minute"
+    }
+  },
+  "monitoring": {
+    "error_tracking": true,
+    "performance_monitoring": true,
+    "uptime_checks": true,
+    "alerts": {
+      "error_rate": "> 5%",
+      "response_time": "> 2s",
+      "uptime": "< 99%"
+    }
+  },
+  "scaling": {
+    "auto_scaling": true,
+    "min_instances": 1,
+    "max_instances": 10,
+    "target_cpu": "70%"
+  }
+}

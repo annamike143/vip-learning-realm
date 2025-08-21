@@ -63,3 +63,91 @@ h1, h2, h3, h4, h5, h6 { font-family: 'Poppins', sans-serif; font-weight: 700; }
     font-size: 15px;
   }
 }
+
+/* AI Status Notification Styles */
+.ai-status-notification {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  margin: 12px 0;
+  border-radius: 8px;
+  background-color: #fff3cd;
+  border: 1px solid #ffeaa7;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.ai-status-notification.ai-active {
+  background-color: #d1f2eb;
+  border: 1px solid #a3e4d7;
+}
+
+.ai-status-notification .status-icon {
+  font-size: 24px;
+  margin-right: 12px;
+}
+
+.ai-status-notification .status-text {
+  flex: 1;
+}
+
+.ai-status-notification .status-text strong {
+  display: block;
+  margin-bottom: 4px;
+  color: #333;
+}
+
+.instructor-typing {
+  font-size: 12px;
+  color: #666;
+  font-style: italic;
+}
+
+/* Dark mode support for AI status notifications */
+body.dark-mode .ai-status-notification {
+  background-color: #2d2a1f;
+  border-color: #4a431a;
+}
+
+body.dark-mode .ai-status-notification.ai-active {
+  background-color: #1a2d26;
+  border-color: #2a4a3d;
+}
+
+body.dark-mode .ai-status-notification .status-text strong {
+  color: #f5f5f5;
+}
+
+/* Enhanced Message Header Styles with Chat Heads */
+.message-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 6px;
+  gap: 8px;
+}
+
+.sender-avatar {
+  font-size: 18px;
+  width: 24px;
+  text-align: center;
+}
+
+.sender-name {
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.ai-label {
+  background-color: #e3f2fd;
+  color: #1976d2;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 500;
+  margin-left: auto;
+}
+
+/* Dark mode support for message headers */
+body.dark-mode .ai-label {
+  background-color: #1a237e;
+  color: #90caf9;
+}

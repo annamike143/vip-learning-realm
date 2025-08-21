@@ -1,3 +1,31 @@
-/* --- src/app/course/[courseId]/course-layout.css --- */
-.course-layout { display: flex; height: 100vh; }
-.main-content-area { flex-grow: 1; overflow-y: auto; padding: 2rem 3rem; }
+/* --- src/app/course/[courseId]/course-layout.css (MOBILE-FIXED v2.0) --- */
+
+/* Desktop Layout - Side-by-side */
+.course-layout { 
+    display: flex; 
+    height: calc(100vh - 60px); /* Account for header height */
+}
+
+.main-content-area { 
+    flex-grow: 1; 
+    overflow-y: auto; 
+    padding: 2rem 3rem;
+    scroll-behavior: auto; /* Prevent smooth scrolling conflicts */
+    scroll-snap-type: none; /* Disable snap scrolling */
+    position: relative; /* Ensure proper positioning context */
+}
+
+/* Mobile Layout - CLEAN VIDEO-FIRST DESIGN */
+@media (max-width: 768px) {
+    .course-layout {
+        display: block; /* Simple block layout for mobile */
+        height: auto;
+        min-height: calc(100vh - 60px);
+    }
+    
+    .main-content-area {
+        width: 100%;
+        overflow-y: visible;
+        padding: 0; /* Remove padding for clean mobile experience */
+    }
+}

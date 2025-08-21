@@ -34,23 +34,84 @@
     font-size: 0.875rem;
 }
 
-/* Layout - Mobile First */
+/* Layout - Mobile First - UNIFIED SCROLLING */
 .course-layout { 
     display: flex; 
     flex-direction: column;
-    height: calc(100vh - 60px); 
+    min-height: calc(100vh - 60px); 
 }
 
 .main-content-area { 
     flex-grow: 1; 
-    overflow-y: auto; 
+    overflow-y: visible; /* Unified scrolling on mobile */
+    padding: 1rem;
 }
 
-/* Content - Mobile First */
+/* Desktop Override */
+@media (min-width: 769px) {
+    .course-layout {
+        flex-direction: row;
+        height: calc(100vh - 60px);
+    }
+    
+    .main-content-area {
+        overflow-y: auto; /* Restore separate scrolling on desktop */
+        padding: 2rem 3rem;
+    }
+}
+
+/* Content - Mobile First - CLEAN VIDEO-FIRST DESIGN */
 .lesson-content-wrapper {
     max-width: 100%;
     margin: 0;
     padding: 1rem;
+    scroll-behavior: auto;
+}
+
+/* Mobile-first: Video gets priority */
+@media (max-width: 768px) {
+    .lesson-content-wrapper {
+        padding: 0;
+    }
+    
+    /* Video section takes priority on mobile */
+    .video-section {
+        margin-bottom: 1.5rem;
+    }
+    
+    .video-container {
+        border-radius: 0; /* Full width on mobile */
+        margin-bottom: 1rem;
+    }
+    
+    /* Content section with proper spacing */
+    .lesson-content-section {
+        padding: 1rem;
+    }
+    
+    /* Interactive zone with proper mobile spacing */
+    .interactive-zone {
+        margin-top: 1rem;
+        padding: 1rem;
+        border-top: 1px solid var(--border-color);
+    }
+}
+
+/* Desktop spacing */
+@media (min-width: 769px) {
+    .lesson-content-wrapper {
+        padding: 2rem 3rem;
+    }
+}
+
+/* Ensure page starts at top */
+body, html {
+    scroll-behavior: auto;
+}
+
+.main-content-area {
+    scroll-behavior: auto;
+    scroll-padding-top: 0;
 }
 
 .lesson-content-wrapper h2 { 
@@ -191,6 +252,7 @@
     height: 500px; /* Fixed height instead of min-height */
     background-color: var(--background-color);
     overflow: hidden; /* Prevent container from expanding */
+    position: relative; /* Prevent scrolling issues */
 }
 
 .chat-panel {
@@ -198,10 +260,11 @@
     flex-direction: column;
     height: 100%;
     padding: 1.5rem;
+    position: relative; /* Prevent auto-scroll */
     opacity: 0;
     transform: translateY(20px);
     transition: all 0.4s ease;
-    overflow: hidden; /* Prevent panel from expanding beyond container */
+    overflow-y: auto; /* Controlled scrolling within panel only */
 }
 
 .chat-panel.active {
@@ -496,4 +559,92 @@
 @keyframes bob {
     0%, 80%, 100% { transform: scale(0); }
     40% { transform: scale(1.0); }
+}
+
+/* === KAJABI-STYLE ENHANCEMENT STYLES === */
+
+/* Lesson Navigation Section - Side by Side Layout */
+.lesson-navigation-section {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 2rem;
+}
+
+/* Community Section */
+.community-section {
+    max-width: 1200px;
+    margin: 3rem auto 0;
+    padding: 0 2rem;
+}
+
+.community-section .section-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.community-section .section-title {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #1f2937;
+    margin-bottom: 0.5rem;
+}
+
+.community-section .section-description {
+    font-size: 1.1rem;
+    color: #6b7280;
+    margin: 0;
+}
+
+/* Interactive Learning Section Enhancements */
+.interactive-learning-section {
+    max-width: 1200px;
+    margin: 3rem auto 0;
+    padding: 0 2rem;
+}
+
+.interactive-learning-section .section-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.interactive-learning-section .section-title {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #1f2937;
+    margin-bottom: 0.5rem;
+}
+
+.interactive-learning-section .section-description {
+    font-size: 1.1rem;
+    color: #6b7280;
+    margin: 0;
+}
+
+/* Mobile Responsive for New Sections */
+@media (max-width: 768px) {
+    .lesson-navigation-section {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        padding: 0 1rem;
+        margin: 1.5rem auto;
+    }
+    
+    .community-section,
+    .interactive-learning-section {
+        padding: 0 1rem;
+        margin-top: 2rem;
+    }
+    
+    .community-section .section-title,
+    .interactive-learning-section .section-title {
+        font-size: 1.5rem;
+    }
+    
+    .community-section .section-description,
+    .interactive-learning-section .section-description {
+        font-size: 1rem;
+    }
 }

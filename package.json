@@ -1,15 +1,47 @@
 {
+  "name": "vip-learning-realm",
+  "version": "0.1.0",
+  "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "NEXT_PUBLIC_FIREBASE_API_KEY=${NEXT_PUBLIC_FIREBASE_API_KEY} NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=${NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN} NEXT_PUBLIC_FIREBASE_DATABASE_URL=${NEXT_PUBLIC_FIREBASE_DATABASE_URL} NEXT_PUBLIC_FIREBASE_PROJECT_ID=${NEXT_PUBLIC_FIREBASE_PROJECT_ID} NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=${NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET} NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=${NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID} NEXT_PUBLIC_FIREBASE_APP_ID=${NEXT_PUBLIC_FIREBASE_APP_ID} next build",
+    "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "analyze": "cross-env ANALYZE=true next build",
+    "build:analyze": "npm run build && npm run analyze",
+    "build:production": "NODE_ENV=production next build",
+    "performance:audit": "lighthouse http://localhost:3000 --output=json --output-path=./performance/audit.json --chrome-flags=\"--headless\"",
+    "performance:test": "npm run build && npm run start & npm run performance:audit",
+    "bundle:analyze": "npm run build && npx @next/bundle-analyzer",
+    "cache:clear": "if exist .next\\cache rmdir /s /q .next\\cache"
   },
   "dependencies": {
-    "firebase": "^10.12.0",
+    "firebase": "^12.1.0",
     "framer-motion": "^12.23.12",
-    "next": "^14.2.0",
+    "next": "^14.2.15",
     "openai": "^5.12.2",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
     "react-icons": "^5.5.0"
+  },
+  "devDependencies": {
+    "@next/bundle-analyzer": "^14.2.32",
+    "cross-env": "^7.0.3",
+    "eslint": "^8.57.0",
+    "eslint-config-next": "14.2.15",
+    "lighthouse": "^11.7.1",
+    "sharp": "^0.33.4",
+    "webpack-bundle-analyzer": "^4.10.2"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
+  },
+  "performance": {
+    "budgets": {
+      "bundle": "1MB",
+      "initial": "500KB",
+      "assets": "2MB"
+    }
   }
 }

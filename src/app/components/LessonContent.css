@@ -1,0 +1,751 @@
+/* --- src/app/components/LessonContent.css (Kajabi-Style Lesson Layout) --- */
+
+/* ===========================================
+   LESSON CONTAINER FOUNDATION
+   =========================================== */
+
+.kajabi-lesson-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+    min-height: calc(100vh - 64px);
+    background: #ffffff;
+}
+
+.lesson-loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 400px;
+    gap: 1rem;
+    color: #6b7280;
+}
+
+.loading-spinner {
+    width: 32px;
+    height: 32px;
+    border: 3px solid #f3f4f6;
+    border-top: 3px solid var(--theme-primary);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* ===========================================
+   LESSON HEADER & BREADCRUMB
+   =========================================== */
+
+.lesson-header {
+    padding: 2rem 0 1.5rem;
+    border-bottom: 1px solid #f3f4f6;
+    margin-bottom: 2rem;
+}
+
+.lesson-breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+    font-size: 14px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.lesson-breadcrumb::-webkit-scrollbar {
+    display: none;
+}
+
+.breadcrumb-item {
+    color: #6b7280;
+    white-space: nowrap;
+    transition: color 0.2s ease;
+}
+
+.breadcrumb-item:hover {
+    color: #374151;
+}
+
+.breadcrumb-separator {
+    color: #d1d5db;
+    font-size: 12px;
+}
+
+.breadcrumb-current {
+    color: var(--theme-primary);
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+.lesson-title-section {
+    max-width: 800px;
+}
+
+.lesson-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #111827;
+    line-height: 1.2;
+    margin-bottom: 0.75rem;
+    font-family: 'Poppins', sans-serif;
+}
+
+.lesson-description {
+    font-size: 1.125rem;
+    color: #6b7280;
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* ===========================================
+   VIDEO SECTION
+   =========================================== */
+
+.video-section {
+    margin-bottom: 3rem;
+}
+
+.video-container {
+    position: relative;
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    background: #000;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.video-player {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    border: none;
+    display: block;
+}
+
+.video-embed {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+}
+
+.video-embed iframe,
+.video-embed video {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+.video-placeholder {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    border: 2px dashed #d1d5db;
+}
+
+.placeholder-content {
+    text-align: center;
+    color: #6b7280;
+}
+
+.placeholder-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    opacity: 0.7;
+}
+
+.placeholder-content h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: #374151;
+}
+
+.placeholder-content p {
+    font-size: 0.875rem;
+    margin: 0;
+}
+
+.video-controls-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #f8fafc;
+    padding: 0.75rem 1.25rem;
+    border-top: 1px solid #e2e8f0;
+    margin-top: 0;
+}
+
+.video-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.video-duration {
+    font-size: 14px;
+    font-weight: 500;
+    color: #374151;
+}
+
+.video-quality {
+    font-size: 12px;
+    padding: 0.25rem 0.5rem;
+    background: #22c55e;
+    color: white;
+    border-radius: 4px;
+    font-weight: 600;
+}
+
+.video-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.video-action-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border: none;
+    background: none;
+    color: #6b7280;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.video-action-btn:hover {
+    background: #f1f5f9;
+    color: #374151;
+    transform: translateY(-1px);
+}
+
+/* ===========================================
+   LESSON CONTENT SECTION
+   =========================================== */
+
+.lesson-content-section {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.lesson-text-content {
+    margin-bottom: 3rem;
+}
+
+.content-wrapper {
+    background: #ffffff;
+    padding: 2rem;
+    border-radius: 12px;
+    border: 1px solid #f3f4f6;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.content-paragraph {
+    font-size: 1.125rem;
+    line-height: 1.8;
+    color: #374151;
+    margin-bottom: 1.5rem;
+    font-family: 'Inter', sans-serif;
+}
+
+.content-paragraph:last-child {
+    margin-bottom: 0;
+}
+
+/* ===========================================
+   LESSON RESOURCES
+   =========================================== */
+
+.lesson-resources {
+    margin-bottom: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid #f3f4f6;
+}
+
+.resources-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #111827;
+    margin-bottom: 1.5rem;
+    font-family: 'Poppins', sans-serif;
+}
+
+.resources-grid {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: 1fr;
+}
+
+.resource-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1.5rem;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.2s ease;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.resource-card:hover {
+    border-color: var(--theme-primary);
+    box-shadow: 0 4px 12px rgba(204, 0, 0, 0.1);
+    transform: translateY(-2px);
+}
+
+.resource-icon {
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, var(--theme-primary), var(--theme-primaryLight));
+    color: white;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.resource-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.resource-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #111827;
+    margin-bottom: 0.5rem;
+    line-height: 1.4;
+}
+
+.resource-description {
+    font-size: 0.875rem;
+    color: #6b7280;
+    line-height: 1.5;
+    margin: 0;
+}
+
+/* ===========================================
+   LESSON NAVIGATION
+   =========================================== */
+
+.lesson-navigation {
+    margin-top: 4rem;
+    padding: 2rem 0;
+    border-top: 1px solid #f3f4f6;
+    background: #f8fafc;
+    border-radius: 12px;
+    margin-bottom: 2rem;
+}
+
+.nav-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    gap: 1rem;
+}
+
+.nav-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.25rem;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    color: #374151;
+    font-weight: 500;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-decoration: none;
+}
+
+.nav-btn:hover {
+    border-color: var(--theme-primary);
+    color: var(--theme-primary);
+    box-shadow: 0 2px 8px rgba(204, 0, 0, 0.1);
+    transform: translateY(-1px);
+}
+
+.nav-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.nav-btn:disabled:hover {
+    border-color: #e5e7eb;
+    color: #374151;
+    box-shadow: none;
+    transform: none;
+}
+
+.lesson-progress-indicator {
+    text-align: center;
+    flex: 1;
+    max-width: 200px;
+}
+
+.progress-text {
+    font-size: 12px;
+    color: #6b7280;
+    font-weight: 500;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.lesson-progress-bar {
+    height: 6px;
+    background: #e5e7eb;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.lesson-progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #22c55e, #16a34a);
+    border-radius: 3px;
+    transition: width 0.6s ease;
+}
+
+/* ===========================================
+   RESPONSIVE BREAKPOINTS
+   =========================================== */
+
+/* Mobile optimizations */
+@media (max-width: 640px) {
+    .kajabi-lesson-container {
+        padding: 0 0.75rem;
+    }
+    
+    .lesson-header {
+        padding: 1.5rem 0 1rem;
+    }
+    
+    .lesson-title {
+        font-size: 1.75rem;
+    }
+    
+    .lesson-description {
+        font-size: 1rem;
+    }
+    
+    .video-section {
+        margin-bottom: 2rem;
+    }
+    
+    .video-container {
+        border-radius: 8px;
+    }
+    
+    .video-controls-bar {
+        padding: 0.5rem 1rem;
+    }
+    
+    .video-actions {
+        gap: 0.25rem;
+    }
+    
+    .video-action-btn {
+        width: 32px;
+        height: 32px;
+    }
+    
+    .content-wrapper {
+        padding: 1.5rem;
+    }
+    
+    .content-paragraph {
+        font-size: 1rem;
+        line-height: 1.7;
+    }
+    
+    .nav-content {
+        flex-direction: column;
+        gap: 1.5rem;
+        padding: 0 1rem;
+    }
+    
+    .nav-btn {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .lesson-progress-indicator {
+        order: -1;
+        max-width: none;
+        width: 100%;
+    }
+}
+
+/* Tablet and up */
+@media (min-width: 768px) {
+    .kajabi-lesson-container {
+        padding: 0 2rem;
+    }
+    
+    .lesson-header {
+        padding: 3rem 0 2rem;
+    }
+    
+    .lesson-title {
+        font-size: 2.5rem;
+    }
+    
+    .resources-grid {
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    }
+}
+
+/* Desktop and up */
+@media (min-width: 1024px) {
+    .kajabi-lesson-container {
+        padding: 0 3rem;
+    }
+    
+    .lesson-title {
+        font-size: 3rem;
+    }
+    
+    .lesson-description {
+        font-size: 1.25rem;
+    }
+    
+    .content-wrapper {
+        padding: 3rem;
+    }
+    
+    .content-paragraph {
+        font-size: 1.2rem;
+        line-height: 1.8;
+    }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+    .kajabi-lesson-container {
+        background: #111827;
+    }
+    
+    .lesson-header {
+        border-bottom-color: #374151;
+    }
+    
+    .lesson-title {
+        color: #f9fafb;
+    }
+    
+    .lesson-description {
+        color: #d1d5db;
+    }
+    
+    .video-controls-bar {
+        background: #1f2937;
+        border-top-color: #374151;
+    }
+    
+    .video-duration {
+        color: #d1d5db;
+    }
+    
+    .video-action-btn {
+        color: #9ca3af;
+    }
+    
+    .video-action-btn:hover {
+        background: #374151;
+        color: #d1d5db;
+    }
+    
+    .content-wrapper {
+        background: #1f2937;
+        border-color: #374151;
+    }
+    
+    .content-paragraph {
+        color: #d1d5db;
+    }
+    
+    .resources-title {
+        color: #f9fafb;
+    }
+    
+    .resource-card {
+        background: #1f2937;
+        border-color: #374151;
+    }
+    
+    .resource-card:hover {
+        border-color: #ff6b6b;
+        box-shadow: 0 4px 12px rgba(255, 107, 107, 0.1);
+    }
+    
+    .resource-title {
+        color: #f9fafb;
+    }
+    
+    .resource-description {
+        color: #9ca3af;
+    }
+    
+    .lesson-navigation {
+        background: #1f2937;
+        border-top-color: #374151;
+    }
+    
+    .nav-btn {
+        background: #374151;
+        border-color: #4b5563;
+        color: #d1d5db;
+    }
+    
+    .nav-btn:hover {
+        border-color: #ff6b6b;
+        color: #ff6b6b;
+    }
+    
+    .progress-text {
+        color: #9ca3af;
+    }
+    
+    .lesson-progress-bar {
+        background: #374151;
+    }
+}
+
+/* ===========================================
+   COURSE PROGRESS SECTION (Video Player Area)
+   =========================================== */
+
+.course-progress-section {
+    background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-top: 1.5rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    transition: all 0.3s ease;
+}
+
+.course-progress-section:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+}
+
+.progress-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.progress-label {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #1f2937;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.progress-label::before {
+    content: '📊';
+    font-size: 1.2rem;
+}
+
+.progress-stats {
+    font-size: 0.875rem;
+    color: #6b7280;
+    font-weight: 500;
+}
+
+.course-progress-bar {
+    width: 100%;
+    height: 12px;
+    background: #e5e7eb;
+    border-radius: 6px;
+    overflow: hidden;
+    position: relative;
+    margin-bottom: 0.75rem;
+}
+
+.course-progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--theme-primary), var(--theme-primaryLight));
+    border-radius: 6px;
+    transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.course-progress-fill::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    animation: progressShimmer 2s infinite;
+}
+
+@keyframes progressShimmer {
+    0% { left: -100%; }
+    100% { left: 100%; }
+}
+
+.progress-percentage {
+    text-align: center;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #374151;
+    margin-top: 0.25rem;
+}
+
+/* Mobile Progress Adjustments */
+@media (max-width: 768px) {
+    .course-progress-section {
+        padding: 1rem;
+        margin-top: 1rem;
+    }
+    
+    .progress-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.25rem;
+    }
+    
+    .progress-label {
+        font-size: 0.9rem;
+    }
+    
+    .progress-stats {
+        font-size: 0.8rem;
+    }
+    
+    .course-progress-bar {
+        height: 10px;
+    }
+}

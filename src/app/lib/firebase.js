@@ -1,8 +1,9 @@
-// --- src/lib/firebase.js (DEFINITIVE FINAL VERSION) ---
+// --- src/lib/firebase.js (UNIFIED VERSION) ---
 import { initializeApp, getApps, getApp } from "firebase/app";
 import { getDatabase } from "firebase/database";
 import { getAuth } from "firebase/auth";
-import { getFunctions } from "firebase/functions"; // <-- THE CRITICAL PIECE
+import { getStorage } from "firebase/storage";
+import { getFunctions } from "firebase/functions";
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -16,7 +17,9 @@ const firebaseConfig = {
 
 const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
 
-// These export lines are the most important part
+// Unified exports for both projects
 export const database = getDatabase(app);
+export const db = database; // Alias for Firestore compatibility
 export const auth = getAuth(app);
-export const functions = getFunctions(app); // <-- THE CRITICAL PIECE
+export const storage = getStorage(app);
+export const functions = getFunctions(app);

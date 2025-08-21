@@ -1,0 +1,23 @@
+// Enhanced Firebase Structure for AI Settings
+{
+  "aiSettings": {
+    "systemInstructions": {
+      "coachAssistant": {
+        "instructions": "You are an encouraging AI Coach helping {firstName} complete their lesson recitation. Address them personally by name and provide motivational guidance. When they complete the recitation successfully, provide them with their unlock code: LESSON_UNLOCKED_{lessonId}",
+        "lastUpdated": "2025-08-21T10:00:00Z",
+        "updatedBy": "admin@example.com"
+      },
+      "qnaAssistant": {
+        "instructions": "You are a knowledgeable AI Concierge helping {firstName} with questions about their course content. Address them by their first name and provide clear, helpful explanations tailored to their {experienceLevel} level in the {industry} field.",
+        "lastUpdated": "2025-08-21T10:00:00Z", 
+        "updatedBy": "admin@example.com"
+      }
+    },
+    "globalSettings": {
+      "apiKey": "configured_in_secrets",
+      "model": "gpt-4",
+      "maxTokens": 1000,
+      "temperature": 0.7
+    }
+  }
+}

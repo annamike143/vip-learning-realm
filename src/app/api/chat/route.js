@@ -1,10 +1,12 @@
 import { NextResponse } from 'next/server';
 import OpenAI from 'openai';
+import { database } from '../../lib/firebase';
+import { ref, get } from 'firebase/database';
 
-// Debug: Check API key
-console.log('[DEBUG] API Key loaded:', process.env.OPENAI_API_KEY ? 'Key exists' : 'Key missing');
-console.log('[DEBUG] API Key length:', process.env.OPENAI_API_KEY?.length || 0);
-console.log('[DEBUG] API Key prefix:', process.env.OPENAI_API_KEY?.substring(0, 20) || 'N/A');
+// Validate API key
+if (!process.env.OPENAI_API_KEY) {
+    console.error('OpenAI API key not configured');
+}
 
 // Initialize OpenAI client
 const openai = new OpenAI({
@@ -15,7 +17,7 @@ export async function POST(request) {
     try {
         const { message, threadId, assistantId, lessonId, courseId, userId, chatType } = await request.json();
         
-        console.log('[DEBUG] API Route - Received:', { threadId, assistantId, lessonId, courseId, userId, chatType });
+
         
         // Validate required parameters
         if (!message) {
@@ -25,31 +27,78 @@ export async function POST(request) {
         if (!assistantId) {
             return NextResponse.json({ error: 'Assistant ID is required' }, { status: 400 });
         }
+
+        // 🔥 NEW: GET USER CONTEXT FROM FIREBASE
+        let userContext = null;
+        if (userId) {
+            try {
+                const userRef = ref(database, `users/${userId}/profile`);
+                const userSnapshot = await get(userRef);
+                if (userSnapshot.exists()) {
+                    userContext = userSnapshot.val();
+                }
+            } catch (error) {
+                console.error('Error loading user context:', error);
+                // Continue without user context
+            }
+        }
         
         let currentThreadId = threadId;
         
         // Create thread if not provided
         if (!currentThreadId) {
-            console.log('[DEBUG] Creating new thread');
-            const thread = await openai.beta.threads.create();
+
+            const thread = await openai.beta.threads.create({
+                // Add user metadata to thread
+                metadata: {
+                    userId: userId || 'unknown',
+                    studentName: userContext?.firstName || 'Student',
+                    courseId: courseId || 'unknown',
+                    lessonId: lessonId || 'unknown',
+                    chatType: chatType || 'general'
+                }
+            });
             currentThreadId = thread.id;
-            console.log('[DEBUG] Created thread:', currentThreadId);
+
+        }
+
+        // 🔥 NEW: CREATE ENHANCED MESSAGE WITH USER CONTEXT
+        let enhancedMessage = message;
+        let runInstructions = '';
+
+        if (userContext) {
+            // Prepend user context to the message
+            const userContextString = `[Student: ${userContext.firstName} ${userContext.lastName || ''}, Role: ${userContext.currentRole || 'Student'}, Level: ${userContext.experienceLevel || 'beginner'}, Industry: ${userContext.industry || 'General'}]`;
+            
+            enhancedMessage = `${userContextString}\n\nStudent Message: ${message}`;
+
+            // Create personalized instructions for the assistant
+            runInstructions = `You are tutoring ${userContext.firstName}. Always address them by their first name "${userContext.firstName}" naturally in your responses. Their experience level is ${userContext.experienceLevel || 'beginner'} and they work in ${userContext.industry || 'general'} field. Tailor your explanations to their level and use relevant examples from their industry when appropriate.`;
+            
+
         }
         
         // Add message to thread
-        console.log('[DEBUG] Adding message to thread:', currentThreadId);
+
         await openai.beta.threads.messages.create(currentThreadId, {
             role: "user",
-            content: message
+            content: enhancedMessage  // Using enhanced message with user context
         });
         
-        // Create run
-        console.log('[DEBUG] Creating run with assistant:', assistantId);
-        const run = await openai.beta.threads.runs.create(currentThreadId, {
+        // Create run with personalized instructions
+
+        const runConfig = {
             assistant_id: assistantId
-        });
+        };
+
+        // Add personalized instructions if we have user context
+        if (runInstructions) {
+            runConfig.instructions = runInstructions;
+        }
+
+        const run = await openai.beta.threads.runs.create(currentThreadId, runConfig);
         
-        console.log('[DEBUG] Created run:', run.id);
+
         
         // Wait for completion - WORKAROUND for runs.retrieve() parameter bug
         let runStatus = run;

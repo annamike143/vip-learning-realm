@@ -1,0 +1,35 @@
+rules_version = '2';
+
+// Firebase Storage Security Rules for VIP Learning Realm
+service firebase.storage {
+  match /b/{bucket}/o {
+    
+    // Course thumbnails - Public read access
+    match /course-thumbnails/{courseId}/{fileName} {
+      allow read: if true; // Public read for course thumbnails
+      allow write: if false; // Only admin can upload via Command Center
+    }
+    
+    // Lesson resources - Authenticated user read access
+    match /resources/{courseId}/{lessonId}/{fileName} {
+      allow read: if request.auth != null; // Authenticated users can read
+      allow write: if false; // Only admin can upload via Command Center
+    }
+    
+    // User profile assets - User specific access
+    match /user-uploads/{userId}/{fileName} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+    
+    // Chat attachments - Restricted access
+    match /chat-attachments/{chatId}/{fileName} {
+      allow read: if request.auth != null;
+      allow write: if request.auth != null;
+    }
+    
+    // Default deny all other access
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+  }
+}

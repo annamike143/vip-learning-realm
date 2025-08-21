@@ -1,0 +1,607 @@
+/* --- src/app/components/KajabiHeader.css (Mobile-First Kajabi-Style Header) --- */
+
+/* ===========================================
+   KAJABI-STYLE HEADER FOUNDATION
+   =========================================== */
+
+.kajabi-header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: var(--theme-background, #ffffff);
+    border-bottom: 1px solid var(--theme-border, #e5e7eb);
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(8px);
+    transition: all 0.3s ease;
+}
+
+.kajabi-header-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 1rem;
+    height: 64px;
+    position: relative;
+}
+
+/* ===========================================
+   LEFT SECTION: LOGO ONLY
+   =========================================== */
+
+.kajabi-header-left {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    min-width: auto;
+}
+
+.kajabi-logo {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: var(--theme-text, #111827);
+    transition: transform 0.2s ease;
+    flex-shrink: 0;
+}
+
+.kajabi-logo:hover {
+    transform: scale(1.05);
+}
+
+/* ===========================================
+   CENTER SECTION: WELCOME MESSAGE & PROGRESS
+   =========================================== */
+
+.kajabi-header-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+    flex: 1;
+    text-align: center;
+}
+
+.welcome-message {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--theme-text, #111827);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+}
+
+.course-progress-compact {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    color: var(--theme-text-secondary, #6b7280);
+}
+
+.course-progress-compact .progress-bar {
+    width: 80px;
+    height: 4px;
+    background: var(--theme-surface, #f3f4f6);
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.course-progress-compact .progress-fill {
+    height: 100%;
+    background: var(--theme-primary, #CC0000);
+    border-radius: 2px;
+    transition: width 0.3s ease;
+}
+
+.course-progress-compact .progress-text {
+    font-size: 0.75rem;
+    font-weight: 500;
+    min-width: 30px;
+}
+
+.kajabi-logo:hover {
+    color: var(--theme-primary, #CC0000);
+}
+
+.logo-icon {
+    width: 40px;
+    height: 40px;
+    background: var(--theme-logoBackground, linear-gradient(135deg, #CC0000, #ff4444));
+    color: white;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 16px;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.2);
+    transition: all 0.2s ease;
+}
+
+.logo-image {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+/* ===========================================
+   RIGHT SECTION: USER MENU
+   =========================================== */
+
+.kajabi-header-right {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-shrink: 0;
+}
+
+.kajabi-header-right {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-shrink: 0;
+}
+
+.mobile-menu-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: background-color 0.2s ease;
+}
+
+.mobile-menu-button:hover {
+    background: #f3f4f6;
+}
+
+.hamburger {
+    position: relative;
+    width: 20px;
+    height: 2px;
+    background: #374151;
+    border-radius: 1px;
+    transition: all 0.3s ease;
+}
+
+.hamburger::before,
+.hamburger::after {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 2px;
+    background: #374151;
+    border-radius: 1px;
+    transition: all 0.3s ease;
+}
+
+.hamburger::before {
+    top: -6px;
+}
+
+.hamburger::after {
+    top: 6px;
+}
+
+.hamburger.active {
+    background: transparent;
+}
+
+.hamburger.active::before {
+    top: 0;
+    transform: rotate(45deg);
+}
+
+.hamburger.active::after {
+    top: 0;
+    transform: rotate(-45deg);
+}
+
+.desktop-user-menu {
+    display: none; /* Hidden on mobile */
+}
+
+.user-profile-dropdown {
+    position: relative;
+}
+
+.profile-button {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.5rem 1rem;
+    border: none;
+    background: #f9fafb;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 14px;
+    color: #374151;
+}
+
+.profile-button:hover {
+    background: #f3f4f6;
+    transform: translateY(-1px);
+}
+
+.user-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #CC0000, #ff4444);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.user-name {
+    font-weight: 500;
+    max-width: 120px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.dropdown-arrow {
+    transition: transform 0.2s ease;
+}
+
+.profile-button:hover .dropdown-arrow {
+    transform: translateY(-1px);
+}
+
+.profile-dropdown-menu {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    margin-top: 0.5rem;
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    min-width: 200px;
+    z-index: 1001;
+    animation: dropdownFadeIn 0.2s ease;
+}
+
+@keyframes dropdownFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+    text-decoration: none;
+    color: #374151;
+    font-size: 14px;
+    font-weight: 500;
+    border: none;
+    background: none;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.dropdown-item:hover {
+    background: #f9fafb;
+}
+
+.dropdown-divider {
+    height: 1px;
+    background: #e5e7eb;
+    margin: 0.25rem 0;
+}
+
+.signout-item {
+    color: #dc2626;
+}
+
+.signout-item:hover {
+    background: #fef2f2;
+}
+
+/* ===========================================
+   MOBILE NAVIGATION MENU
+   =========================================== */
+
+.mobile-nav-menu {
+    position: fixed;
+    top: 64px;
+    left: 0;
+    right: 0;
+    background: white;
+    border-bottom: 1px solid #e5e7eb;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transform: translateY(-100%);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 999;
+}
+
+.mobile-nav-menu.active {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+}
+
+.mobile-nav-content {
+    padding: 1.5rem;
+    max-height: calc(100vh - 64px);
+    overflow-y: auto;
+}
+
+.mobile-progress-section {
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.mobile-nav-links {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.mobile-nav-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    text-decoration: none;
+    color: #374151;
+    font-size: 16px;
+    font-weight: 500;
+    border: none;
+    background: none;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+.mobile-nav-item:hover {
+    background: #f9fafb;
+    transform: translateX(4px);
+}
+
+.mobile-nav-item.signout-item {
+    color: #dc2626;
+    margin-top: 1rem;
+    border-top: 1px solid #e5e7eb;
+    padding-top: 1.5rem;
+}
+
+.mobile-nav-item.signout-item:hover {
+    background: #fef2f2;
+}
+
+.mobile-menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.3);
+    z-index: 998;
+    backdrop-filter: blur(2px);
+}
+
+/* ===========================================
+   RESPONSIVE BREAKPOINTS
+   =========================================== */
+
+/* Tablet and up */
+@media (min-width: 640px) {
+    .logo-text {
+        display: block;
+    }
+    
+    .current-course {
+        max-width: 200px;
+    }
+    
+    .kajabi-header-container {
+        padding: 0 1.5rem;
+    }
+}
+
+/* Desktop and up */
+@media (min-width: 1024px) {
+    .mobile-menu-button {
+        display: none;
+    }
+    
+    .desktop-user-menu {
+        display: block;
+    }
+    
+    .kajabi-progress-section {
+        display: block;
+    }
+    
+    .kajabi-header-container {
+        padding: 0 2rem;
+        height: 72px;
+    }
+    
+    .logo-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 16px;
+    }
+    
+    .logo-text {
+        font-size: 18px;
+    }
+    
+    .current-course {
+        max-width: 300px;
+    }
+}
+
+/* Large desktop */
+@media (min-width: 1440px) {
+    .kajabi-header-container {
+        padding: 0 3rem;
+    }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+    .kajabi-header {
+        background: #1f2937;
+        border-bottom-color: #374151;
+    }
+    
+    .kajabi-logo {
+        color: #f9fafb;
+    }
+    
+    .kajabi-logo:hover {
+        color: #ff6b6b;
+    }
+    
+    .current-course {
+        color: #d1d5db;
+    }
+    
+    .course-progress .progress-bar {
+        background: #374151;
+    }
+    
+    .progress-text {
+        color: #d1d5db;
+    }
+    
+    .profile-button {
+        background: #374151;
+        color: #d1d5db;
+    }
+    
+    .profile-button:hover {
+        background: #4b5563;
+    }
+    
+    .profile-dropdown-menu {
+        background: #1f2937;
+        border-color: #374151;
+    }
+    
+    .dropdown-item {
+        color: #d1d5db;
+    }
+    
+    .dropdown-item:hover {
+        background: #374151;
+    }
+    
+    .mobile-nav-menu {
+        background: #1f2937;
+        border-bottom-color: #374151;
+    }
+    
+    .mobile-nav-item {
+        color: #d1d5db;
+    }
+    
+    .mobile-nav-item:hover {
+        background: #374151;
+    }
+}
+
+/* ===========================================
+   RESPONSIVE DESIGN: MOBILE OPTIMIZATIONS
+   =========================================== */
+
+@media (max-width: 768px) {
+    .kajabi-header-center {
+        gap: 0.125rem;
+    }
+    
+    .welcome-message {
+        font-size: 1rem;
+        max-width: 200px;
+    }
+    
+    .course-progress-compact {
+        gap: 0.375rem;
+    }
+    
+    .course-progress-compact .progress-bar {
+        width: 60px;
+        height: 3px;
+    }
+    
+    .course-progress-compact .progress-text {
+        font-size: 0.7rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .kajabi-header-container {
+        padding: 0 0.75rem;
+        height: 56px;
+    }
+    
+    .welcome-message {
+        font-size: 0.9rem;
+        max-width: 150px;
+    }
+    
+    .course-progress-compact {
+        display: none; /* Hide progress on very small screens */
+    }
+    
+    .logo-icon, .logo-image {
+        width: 32px;
+        height: 32px;
+    }
+    
+    .logo-icon {
+        font-size: 14px;
+    }
+}
+
+@media (min-width: 769px) {
+    .kajabi-header-center {
+        gap: 0.5rem;
+    }
+    
+    .welcome-message {
+        font-size: 1.2rem;
+    }
+    
+    .course-progress-compact .progress-bar {
+        width: 120px;
+        height: 5px;
+    }
+    
+    .course-progress-compact .progress-text {
+        font-size: 0.8rem;
+    }
+}

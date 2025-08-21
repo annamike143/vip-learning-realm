@@ -1,12 +1,14 @@
-/* --- src/app/course/[courseId]/lesson-page.css (v3.0 - DEFINITIVE REFACTOR) --- */
+/* --- src/app/course/[courseId]/lesson-page.css (KAJABI-STYLE TRANSFORMATION) --- */
 
 .course-page-wrapper {
     display: flex;
     flex-direction: column;
     height: 100vh;
-    overflow: hidden; /* Prevents double scrollbars */
+    overflow: hidden;
+    background: #f8fafc;
 }
 
+/* Legacy header styles for backward compatibility */
 .main-app-header {
     display: flex;
     justify-content: space-between;
@@ -14,7 +16,7 @@
     padding: 1rem 2rem;
     border-bottom: 1px solid var(--border-color);
     background-color: var(--surface-color);
-    flex-shrink: 0; /* Prevents header from shrinking */
+    flex-shrink: 0;
 }
 .header-course-title {
     font-family: var(--font-heading);
@@ -39,36 +41,554 @@
 
 .course-layout {
     display: flex;
-    flex-grow: 1;
-    overflow: hidden; /* This is key for the two-pane scroll */
+    flex-direction: column; /* Stack vertically on mobile */
+    flex: 1;
+    min-height: 0; /* Important for flexbox */
+    overflow: hidden; /* Prevent double scrollbars */
 }
 
-/* This makes the main content area scroll independently */
 .main-content-area {
-    flex-grow: 1;
+    flex: 1;
+    background: #ffffff;
     overflow-y: auto;
-    padding: 3rem;
+    min-height: 0; /* Important for flexbox scrolling */
+    padding: 0; /* Remove padding to eliminate split view */
+    scrollbar-width: thin;
+    scrollbar-color: #d1d5db #f9fafb;
 }
 
-.lesson-content-wrapper {
-    max-width: 900px;
+.main-content-area::-webkit-scrollbar {
+    width: 6px;
+}
+
+.main-content-area::-webkit-scrollbar-track {
+    background: #f9fafb;
+}
+
+.main-content-area::-webkit-scrollbar-thumb {
+    background: #d1d5db;
+    border-radius: 3px;
+}
+
+.main-content-area::-webkit-scrollbar-thumb:hover {
+    background: #9ca3af;
+}
+
+/* ===========================================
+   KAJABI-STYLE LESSON PAGE
+   =========================================== */
+
+.kajabi-lesson-page {
+    background: #ffffff;
+    min-height: calc(100vh - 64px);
+    padding: 0; /* Remove any padding that might cause issues */
+    margin: 0; /* Ensure no margins */
+    overflow-x: hidden; /* Prevent horizontal scroll */
+}
+
+.lesson-loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 400px;
+    gap: 1rem;
+    color: #6b7280;
+}
+
+.loading-spinner {
+    width: 32px;
+    height: 32px;
+    border: 3px solid #f3f4f6;
+    border-top: 3px solid var(--theme-primary);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.lesson-error {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 400px;
+    gap: 1rem;
+    text-align: center;
+    color: #dc2626;
+    padding: 2rem;
+}
+
+.lesson-error h2 {
+    color: #dc2626;
+    margin-bottom: 0.5rem;
+}
+
+.lesson-error button {
+    padding: 0.75rem 1.5rem;
+    background: var(--theme-primary);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.2s ease;
+}
+
+.lesson-error button:hover {
+    background: #a30000;
+}
+
+/* ===========================================
+   INTERACTIVE LEARNING SECTION
+   =========================================== */
+
+.interactive-learning-section {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 3rem 1rem;
+    background: #f8fafc;
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.section-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 1rem;
+    font-family: 'Poppins', sans-serif;
+}
+
+.section-description {
+    font-size: 1.25rem;
+    color: #6b7280;
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+/* ===========================================
+   KAJABI-STYLE CHAT CONTAINER
+   =========================================== */
+
+.kajabi-chat-container {
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+    margin-bottom: 3rem;
+    border: 1px solid #e5e7eb;
+}
+
+.chat-tabs-header {
+    display: flex;
+    background: #f8fafc;
+    border-bottom: 1px solid #e5e7eb;
+    padding: 0;
+}
+
+.chat-tab {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.5rem 2rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    text-align: left;
+}
+
+.chat-tab:hover {
+    background: #f1f5f9;
+}
+
+.chat-tab.active {
+    background: #ffffff;
+    color: var(--theme-primary);
+}
+
+.chat-tab.active::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--theme-gradient);
+}
+
+.tab-icon {
+    font-size: 1.5rem;
+    flex-shrink: 0;
+}
+
+.tab-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.tab-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #111827;
+}
+
+.tab-subtitle {
+    font-size: 0.875rem;
+    color: #6b7280;
+}
+
+.chat-tab.active .tab-title {
+    color: #CC0000;
+}
+
+.chat-content-area {
+    background: #ffffff;
+}
+
+.chat-panel {
+    display: none;
+}
+
+.chat-panel.active {
+    display: block;
+}
+
+.chat-panel-header {
+    padding: 2rem 2rem 1rem;
+    border-bottom: 1px solid #f3f4f6;
+    background: #fafbfc;
+}
+
+.chat-panel-header h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #111827;
+    margin-bottom: 0.5rem;
+    font-family: 'Poppins', sans-serif;
+}
+
+.chat-panel-header p {
+    font-size: 1rem;
+    color: #6b7280;
+    margin: 0;
+    line-height: 1.5;
+}
+
+/* ===========================================
+   UNLOCK GATE SECTION
+   =========================================== */
+
+.unlock-gate-section {
+    background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+    border-radius: 16px;
+    padding: 3rem 2rem;
+    text-align: center;
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.unlock-content {
+    max-width: 500px;
     margin: 0 auto;
 }
 
-.lesson-content-wrapper h2 { font-size: 2.8rem; margin-bottom: 0.5rem; }
-.lesson-content-wrapper > p { font-size: 1.2rem; color: var(--text-secondary); margin-bottom: 3rem; }
-
-.video-container {
-    position: relative; padding-bottom: 56.25%; height: 0;
-    overflow: hidden; border-radius: 12px;
-    background-color: #000; box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+.unlock-icon {
+    font-size: 3rem;
+    margin-bottom: 1.5rem;
+    display: block;
 }
-.video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
 
-.loading-state {
+.unlock-gate-section h3 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 1rem;
+    font-family: 'Poppins', sans-serif;
+}
+
+.unlock-gate-section p {
+    font-size: 1.125rem;
+    color: #6b7280;
+    margin-bottom: 2rem;
+    line-height: 1.6;
+}
+
+.unlock-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.unlock-input {
+    padding: 1rem 1.25rem;
+    border: 2px solid #e5e7eb;
+    border-radius: 12px;
+    font-size: 1rem;
+    background: #ffffff;
+    transition: all 0.2s ease;
+    outline: none;
+}
+
+.unlock-input:focus {
+    border-color: var(--theme-primary);
+    box-shadow: 0 0 0 3px rgba(204, 0, 0, 0.1);
+}
+
+.unlock-button {
+    padding: 1rem 2rem;
+    background: linear-gradient(135deg, #CC0000, #ff4444);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(204, 0, 0, 0.2);
+}
+
+.unlock-button:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(204, 0, 0, 0.3);
+}
+
+.unlock-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+.status-message {
+    margin-top: 1rem;
+    padding: 1rem;
+    border-radius: 8px;
+    font-weight: 500;
+}
+
+.status-message.success {
+    background: #dcfce7;
+    color: #166534;
+    border: 1px solid #bbf7d0;
+}
+
+.status-message.error {
+    background: #fef2f2;
+    color: #dc2626;
+    border: 1px solid #fecaca;
+}
+
+/* Next Lesson Preview */
+.next-lesson-preview {
+    margin: 1.5rem 0;
+}
+
+.next-lesson-preview p {
+    margin-bottom: 1rem;
+    color: #6b7280;
+    font-size: 0.9rem;
+}
+
+.next-lesson-card {
     display: flex;
     align-items: center;
-    justify-content: center;
-    height: 100vh;
+    justify-content: space-between;
+    padding: 1rem;
+    background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+}
+
+.next-lesson-card:hover {
+    border-color: #CC0000;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(204, 0, 0, 0.1);
+}
+
+.next-lesson-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.next-lesson-label {
+    font-size: 0.75rem;
+    color: #6b7280;
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+.next-lesson-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #1f2937;
+}
+
+.unlock-arrow {
     font-size: 1.5rem;
+    color: #CC0000;
+    font-weight: bold;
+    opacity: 0.7;
+    transition: all 0.3s ease;
+}
+
+.next-lesson-card:hover .unlock-arrow {
+    opacity: 1;
+    transform: translateX(4px);
+}
+
+/* ===========================================
+   RESPONSIVE BREAKPOINTS
+   =========================================== */
+
+/* Mobile optimizations */
+@media (max-width: 640px) {
+    .main-content-area {
+        padding: 0; /* Remove all padding on mobile */
+        overflow-x: hidden; /* Prevent horizontal scroll */
+    }
+    
+    .interactive-learning-section {
+        padding: 1.5rem 1rem; /* Reduce padding */
+        margin: 0; /* Remove margin */
+    }
+    
+    .section-title {
+        font-size: 2rem;
+    }
+    
+    .section-description {
+        font-size: 1.125rem;
+    }
+    
+    .chat-tabs-header {
+        flex-direction: column;
+    }
+    
+    .chat-tab {
+        padding: 1.25rem 1.5rem;
+    }
+    
+    .chat-tab.active::after {
+        height: 0;
+        width: 4px;
+        height: 100%;
+        left: 0;
+        top: 0;
+        right: auto;
+        bottom: auto;
+    }
+    
+    .chat-panel-header {
+        padding: 1.5rem 1.5rem 1rem;
+    }
+    
+    .unlock-gate-section {
+        padding: 2rem 1.5rem;
+        margin: 1rem;
+        border-radius: 12px;
+    }
+    
+    .unlock-form {
+        gap: 1.5rem;
+    }
+    
+    .unlock-input,
+    .unlock-button {
+        padding: 1.25rem;
+        font-size: 16px; /* Prevent zoom on iOS */
+    }
+    
+    .next-lesson-card {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 0.75rem;
+    }
+    
+    .next-lesson-info {
+        align-items: center;
+    }
+    
+    .unlock-arrow {
+        transform: rotate(90deg);
+        font-size: 1.25rem;
+    }
+    
+    .next-lesson-card:hover .unlock-arrow {
+        transform: rotate(90deg) translateX(0) translateY(4px);
+    }
+}
+
+/* Tablet and up */
+@media (min-width: 768px) {
+    .course-layout {
+        flex-direction: row; /* Side by side on desktop */
+    }
+    
+    .main-content-area {
+        overflow-y: auto;
+        padding: 0; /* Keep consistent padding */
+    }
+    
+    .interactive-learning-section {
+        padding: 3rem 2rem;
+    }
+    
+    .unlock-form {
+        flex-direction: row;
+        align-items: stretch;
+    }
+    
+    .unlock-input {
+        flex: 1;
+    }
+    
+    .unlock-button {
+        flex-shrink: 0;
+        min-width: 200px;
+    }
+}
+
+/* Desktop and up */
+@media (min-width: 1024px) {
+    .main-content-area {
+        padding: 0; /* Maintain zero padding for consistency */
+    }
+    
+    .interactive-learning-section {
+        padding: 4rem 3rem;
+    }
+    
+    .section-title {
+        font-size: 3rem;
+    }
+    
+    .section-description {
+        font-size: 1.375rem;
+    }
+    
+    .chat-tab {
+        padding: 2rem 2.5rem;
+    }
+    
+    .chat-panel-header {
+        padding: 2.5rem 2.5rem 1.5rem;
+    }
 }

@@ -1,0 +1,185 @@
+/* --- src/app/components/InstructorMessage.css --- */
+
+.instructor-message {
+    background: linear-gradient(135deg, #fef7f0, #fef3ec);
+    border: 1px solid #fed7aa;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 2px 8px rgba(251, 146, 60, 0.1);
+    transition: all 0.3s ease;
+}
+
+.instructor-message:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(251, 146, 60, 0.15);
+}
+
+.instructor-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.instructor-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.instructor-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.avatar-placeholder {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, var(--theme-primary, var(--theme-primary)), var(--theme-primaryLight, var(--theme-primaryLight)));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: white;
+}
+
+.instructor-info {
+    flex-grow: 1;
+}
+
+.instructor-name {
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #9a3412;
+}
+
+.instructor-role {
+    font-size: 0.875rem;
+    color: #c2410c;
+    opacity: 0.8;
+}
+
+.message-indicator {
+    font-size: 1.2rem;
+    opacity: 0.7;
+}
+
+.instructor-content {
+    margin-bottom: 0.5rem;
+}
+
+.welcome-message {
+    margin: 0;
+    line-height: 1.6;
+    color: #9a3412;
+    font-size: 0.95rem;
+}
+
+.expand-btn {
+    background: none;
+    border: none;
+    color: var(--theme-primary, var(--theme-primary));
+    font-weight: 500;
+    font-size: 0.875rem;
+    cursor: pointer;
+    margin-top: 0.5rem;
+    padding: 0;
+    text-decoration: underline;
+    transition: color 0.2s ease;
+}
+
+.expand-btn:hover {
+    color: var(--theme-primaryHover, var(--theme-primaryHover));
+}
+
+.message-meta {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 0.5rem;
+}
+
+.update-time {
+    font-size: 0.75rem;
+    color: #c2410c;
+    opacity: 0.6;
+}
+
+/* Loading State */
+.instructor-message.loading {
+    background: #f8fafc;
+    border-color: #e2e8f0;
+}
+
+.instructor-skeleton {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.avatar-skeleton {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 50%, #f1f5f9 75%);
+    background-size: 200% 100%;
+    animation: skeleton-loading 1.5s infinite;
+}
+
+.content-skeleton {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.line-skeleton {
+    height: 1rem;
+    background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 50%, #f1f5f9 75%);
+    background-size: 200% 100%;
+    animation: skeleton-loading 1.5s infinite;
+    border-radius: 4px;
+}
+
+.line-skeleton.short {
+    width: 60%;
+}
+
+@keyframes skeleton-loading {
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .instructor-message {
+        padding: 1rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .instructor-header {
+        gap: 0.75rem;
+    }
+    
+    .instructor-avatar {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .instructor-name {
+        font-size: 1rem;
+    }
+    
+    .welcome-message {
+        font-size: 0.9rem;
+    }
+}

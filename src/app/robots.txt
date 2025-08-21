@@ -1,0 +1,30 @@
+User-agent: *
+Allow: /
+Allow: /login
+Disallow: /api/
+Disallow: /admin/
+Disallow: /profile/
+Disallow: /_next/
+Disallow: /course/*/private/
+
+# Sitemap location
+Sitemap: https://learning.mikesalazaracademy.com/sitemap.xml
+
+# Crawl delay for courtesy
+Crawl-delay: 1
+
+# Specific rules for educational content
+User-agent: Googlebot
+Allow: /course/
+Allow: /
+
+User-agent: Bingbot
+Allow: /course/
+Allow: /
+
+# Block access to sensitive areas
+User-agent: *
+Disallow: /api/
+Disallow: /admin/
+Disallow: /_next/static/
+Disallow: /.well-known/
